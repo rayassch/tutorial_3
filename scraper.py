@@ -19,9 +19,9 @@ def scrape_table(root):
             print record, '------------'
             # Finally, save the record to the datastore - 'Artist' is our unique key
             scraperwiki.sqlite.save(["Hospital"], record)
-        	    if table_cells:
-                    table_cellsurls = table_cells[1].cssselect("a")
-                    record['HospitalURL'] = table_cellsurls[1].attrib.get('href')
+        	if table_cells:
+                table_cellsurls = table_cells[1].cssselect("a")
+                record['HospitalURL'] = table_cellsurls[1].attrib.get('href')
                     
 # scrape_and_look_for_next_link function: calls the scrape_table
 # function, then hunts for a 'next' link: if one is found, calls itself again
