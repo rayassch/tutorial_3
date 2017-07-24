@@ -15,6 +15,9 @@ def scrape_table(root):
             record['Region'] = table_cells[2].text_content()
             record['Trolley total'] = table_cells[3].text_content()
             record['Sales m'] = table_cells[4].text_content()
+            table_cellsurls = table_cells[1].cssselect("a")
+            record['HospitalURL'] = table_cellsurls[1].attrib.get('href')
+
             # Print out the data we've gathered
             print record, '------------'
             # Finally, save the record to the datastore - 'Artist' is our unique key
@@ -33,9 +36,7 @@ def scrape_and_look_for_next_link(url):
         #next_url = urlparse.urljoin(base_url, next_link[0].attrib.get('href'))
         #print next_url
         #scrape_and_look_for_next_link(next_url)
-    if table_cells:
-        table_cellsurls = table_cells[1].cssselect("a")
-        record['HospitalURL'] = table_cellsurls[1].attrib.get('href')
+    
 
 # ---------------------------------------------------------------------------
 # START HERE: define your starting URL - then 
