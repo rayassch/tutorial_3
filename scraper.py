@@ -19,7 +19,10 @@ def scrape_table(root):
             print record, '------------'
             # Finally, save the record to the datastore - 'Artist' is our unique key
             scraperwiki.sqlite.save(["Hospital"], record)
-        
+        	    if table_cells:
+                    table_cellsurls = table_cells[1].cssselect("a")
+                    record['HospitalURL'] = table_cellsurls[1].attrib.get('href')
+                    
 # scrape_and_look_for_next_link function: calls the scrape_table
 # function, then hunts for a 'next' link: if one is found, calls itself again
 def scrape_and_look_for_next_link(url):
@@ -27,12 +30,12 @@ def scrape_and_look_for_next_link(url):
     print html
     root = lxml.html.fromstring(html)
     scrape_table(root)
-    next_link = root.cssselect("a.next")
-    print next_link
-    if next_link:
-        next_url = urlparse.urljoin(base_url, next_link[0].attrib.get('href'))
-        print next_url
-        scrape_and_look_for_next_link(next_url)
+    #next_link = root.cssselect("a.next")
+    #print next_link
+    #if next_link:
+        #next_url = urlparse.urljoin(base_url, next_link[0].attrib.get('href'))
+        #print next_url
+        #scrape_and_look_for_next_link(next_url)
 
 # ---------------------------------------------------------------------------
 # START HERE: define your starting URL - then 
